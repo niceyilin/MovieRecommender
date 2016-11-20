@@ -21,7 +21,13 @@ echo -e "\n >>>>>>>>>>>>>>>>>>>>>>>Start Executing MapReduce<<<<<<<<<<<<<<<<<<<<
 hadoop com.sun.tools.javac.Main *.java
 jar cf recommender.jar *.class
 
+START=$(date +%s)
 hadoop jar recommender.jar Driver /watchingHistory /extendedWatchingHistory /output 2
+END=$(date +%s)
+DIFF=$(( $END - $START ))
+echo "*******************************************************************************"
+echo "************** MapReducer Jobs elapsed time $DIFF seconds *********************"
+echo "*******************************************************************************"
 
 hdfs dfs -ls /
 hdfs dfs -cat /output/*
